@@ -107,5 +107,86 @@ namespace EntityOrnek
             db.SaveChanges();
             MessageBox.Show("Öğrenci Bilgileri Başarıyla Güncellendi");
         }
-    }
+        private void radioButton11_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void radioButton12_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnLinqEntity_Click(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked==true)
+            {
+                List<TBLOGRENCİ> liste1 = db.TBLOGRENCİ.OrderBy(p => p.AD).ToList();
+                dataGridView1.DataSource = liste1;
+            }
+            if (radioButton2.Checked==true)
+            {
+                List<TBLOGRENCİ> liste2 = db.TBLOGRENCİ.OrderByDescending(p =>p.AD).ToList();
+                dataGridView1.DataSource = liste2;
+            }
+            if (radioButton3.Checked==true)
+            {
+                List<TBLOGRENCİ> liste3 = db.TBLOGRENCİ.OrderBy(p => p.AD).Take(3).ToList();
+                dataGridView1.DataSource = liste3; 
+            }
+            if (radioButton4.Checked == true)
+            {
+                List<TBLOGRENCİ> liste4 = db.TBLOGRENCİ.OrderByDescending(p => p.AD).Take(3).ToList();
+                dataGridView1.DataSource = liste4;
+            }
+            if (radioButton5.Checked==true)
+            {
+                List<TBLOGRENCİ> liste5 = db.TBLOGRENCİ.Where(p => p.ID == 5).ToList();
+                dataGridView1.DataSource = liste5;
+            }
+            if (radioButton6.Checked==true)
+            {
+                List<TBLOGRENCİ> liste6 = db.TBLOGRENCİ.Where(p => p.AD.StartsWith ("A")).ToList();
+                dataGridView1.DataSource = liste6;
+            }
+            if (radioButton7.Checked == true)
+            {
+                List<TBLOGRENCİ> liste7 = db.TBLOGRENCİ.Where(p => p.AD.EndsWith("R")).ToList();
+                dataGridView1.DataSource = liste7;
+            }
+            if (radioButton8.Checked==true)
+            {
+                bool deger = db.TBLDERSLER.Any();
+                MessageBox.Show(deger.ToString(), "Bilgi", MessageBoxButtons.OK,  MessageBoxIcon.Information);
+            }
+            if (radioButton9.Checked==true)
+            {
+                int toplam = db.TBLOGRENCİ.Count();
+                MessageBox.Show(toplam.ToString(), "Toplam Öğrenci Sayısı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            if (radioButton10.Checked==true)
+            {
+                var toplam = db.TBLNOTLAR.Sum(p => p.SINAV1);
+                MessageBox.Show("Toplam Sınav1 Puanı: " + toplam.ToString());
+            }
+            if (radioButton11.Checked==true)
+            {
+                var ortalama = db.TBLNOTLAR.Average(p => p.SINAV1);
+                MessageBox.Show("1. Sınavın Ortalaması: "+ ortalama.ToString());
+            }
+            if (radioButton12.Checked==true)
+            {
+                var enyuksek = db.TBLNOTLAR.Max(p => p.SINAV1);
+                MessageBox.Show("1. Sınavın En Yüksek Notu: " + enyuksek.ToString());
+            }
+            if (radioButton13.Checked==true)
+            {
+                var endusuk = db.TBLNOTLAR.Min(p => p.SINAV1);
+                MessageBox.Show("1. Sınavın En Düşük Notu: " + endusuk.ToString());
+
+            }
+        }
+
+        
+    } 
 }
